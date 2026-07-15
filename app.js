@@ -1,55 +1,41 @@
-body {
-  font-family: Arial, sans-serif;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #f4f6f8;
-  text-align: center;
+const heute = new Date();
+const datumSchluessel = heute.toISOString().split("T")[0];
+
+// Datum anzeigen
+document.getElementById("datum").textContent =
+  heute.toLocaleDateString("de-DE", {
+    weekday: "long",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+
+// Gespeicherte Daten laden
+function laden() {
+  const daten = JSON.parse(localStorage.getItem("blutdruck")) || {};
+  const tag = daten[datumSchluessel];
+
+  if (tag) {
+    document.getElementById("morgen").value = tag.morgen || "";
+    document.getElementById("mittag").value = tag.mittag || "";
+    document.getElementById("abend").value = tag.abend || "";
+  }
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 5px;
+// Daten speichern
+function speichern() {
+  const daten = JSON.parse(localStorage.getItem("blutdruck")) || {};
+
+  daten[datumSchluessel] = {
+    morgen: document.getElementById("morgen").value,
+    mittag: document.getElementById("mittag").value,
+    abend: document.getElementById("abend").value
+  };
+
+  localStorage.setItem("blutdruck", JSON.stringify(daten));
+
+  alert("✅ Blutdruck gespeichert");
 }
 
-#datum {
-  font-size: 20px;
-  margin-bottom: 25px;
-}
-
-.box {
-  background: white;
-  padding: 20px;
-  margin-bottom: 18px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  margin-top: 0;
-}
-
-input {
-  width: 80%;
-  padding: 14px;
-  font-size: 24px;
-  text-align: center;
-  border: 2px solid #aaa;
-  border-radius: 10px;
-}
-
-button {
-  width: 100%;
-  padding: 16px;
-  font-size: 22px;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  background: #2e7d32;
-  color: white;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(0.98);
-}
+// Beim Start laden
+laden();
