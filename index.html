@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blutdruck</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h1>🩺 Blutdruck</h1>
+<p id="datum"></p>
+
+<div class="box">
+  <h2>🌅 Morgen</h2>
+  <input id="morgen" type="text" placeholder="120/80">
+</div>
+
+<div class="box">
+  <h2>☀️ Mittag</h2>
+  <input id="mittag" type="text" placeholder="120/80">
+</div>
+
+<div class="box">
+  <h2>🌙 Abend</h2>
+  <input id="abend" type="text" placeholder="120/80">
+</div>
+
+<button onclick="speichern()">Speichern</button>
+
+<script src="app.js"></script>
+</body>
+</html>
